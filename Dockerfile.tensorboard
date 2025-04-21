@@ -1,0 +1,11 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+RUN pip install --no-cache-dir tensorboard
+
+# Expose the port TensorBoard uses
+EXPOSE 6006
+
+# Command will be specified in docker-compose.yml
+CMD ["tensorboard"] 

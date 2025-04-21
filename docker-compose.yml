@@ -1,0 +1,37 @@
+services:
+  dev:
+    container_name: dev-environment
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - "8888:8888"  # Jupyter Notebook
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    command: >
+      sh -c "
+        echo '--- Running Startup Environment Checks via run_all_tests.py ---' &&
+        python /app/env-test/run_all_tests.py &&
+        echo '--- Environment Checks Passed, Starting Jupyter Notebook ---' &&
+        jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token=''
+      "
+
+  tensorboard:
+    container_name: tensorboard
+    build:
+      context: .
+      dockerfile: Dockerfile.tensorboard
+    volumes:
+      - .:/app
+    ports:
+      - "6006:6006"
+    command: tensorboard --logdir=/app/logs --host=0.0.0.0 
