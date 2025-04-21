@@ -74,8 +74,6 @@ The main goal is to offer a consistent, containerized environment with essential
 
 ## Development Workflow
 
-*   **Primary Container:** Most development happens within the `dev-environment` container, accessed via Jupyter or `docker-compose exec`.
-
 ### Using VSCode based IDE with Dev Containers (Recommended)
 
 For a fully integrated IDE experience where VS Code base IDE runs directly against the container's environment (seeing all installed libraries, Python interpreter, etc.), you can use the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers):
@@ -87,6 +85,10 @@ For a fully integrated IDE experience where VS Code base IDE runs directly again
     *   Type and select "**Dev Containers: Attach to Running Container...**".
     *   Choose the running `dev-environment` container from the list.
 4.  **Develop:** VS Code will open a new window connected to the container. The integrated terminal, debugger, Python interpreter selection, and language features will all operate *inside* the container, providing direct access to all installed tools and libraries.
+
+### Workflows
+
+*   **Primary Container:** Development happens within the `dev-environment` container, accessed via Jupyter or `docker-compose exec`.
 
 *   **Executing Commands:** To run commands inside the main development container:
     ```bash
